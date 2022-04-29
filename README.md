@@ -1,28 +1,26 @@
 # productivity-tracker
-It calculates average task rate and work availability for individuals, groups or teams of employees for a given date range, and the number of employees needed to complete a series of tasks in a given amount of time at a calculated rate of productivity.
+It calculates average task rate and work availability for individual, subset or full set of employees for a given date range, and the number of employees needed to complete a series of tasks in a given amount of time at a calculated rate of productivity.
 
 ### **CASE COUNT LOG**
 
 User login/ password authentication (group permission).
 
 User inputs:
-
-	shiftDate   <input type=”date”>
-	shiftStart    <input type=”time”>
-	shiftEnd    <input type=”time”>
-	categoryStart   <input type=”time”>
-	categoryEnd   <input type=”time”>
-	stockCount    <input type=”number”>
-
+```
+shiftDate   	<input type=”date”>
+shiftStart    	<input type=”time”>
+shiftEnd    	<input type=”time”>
+categoryStart	<input type=”time”>
+categoryEnd	<input type=”time”>
+stockCount    	<input type=”number”>
+```
 Variable Assignments:
-
-	let categoryTime = categoryEnd - categoryStart
-	let stockingRate = stockCount ÷ [60 minutes]
-	let shiftTime = shiftEnd – shiftStart
-	let stockingTime = shiftTime – [breaks, lunches, routine tasks]
-	categoryEnd   <input type=”time”>
-	stockCount    <input type=”number”>
-
+```
+let categoryTime = categoryEnd - categoryStart
+let stockingRate = stockCount ÷ [60 minutes]
+let shiftTime = shiftEnd – shiftStart
+let stockingTime = shiftTime – [breaks, lunches, routine tasks]
+```
 Data stored to SQL server.
 
 
@@ -31,29 +29,30 @@ Data stored to SQL server.
 User login/password authentication (owner permission).
 
 User Inputs:
-
-	deliveryDate		<input type=”date”>
-	deliveryTime		<input type=”time”>
-	categoryName		<input type=”text”>		*//ex. “BME”, “CSBB”*
-	cat0StockRecvd	<input type=”number”>	*//attach to invoice*
-
+```
+deliveryDate			<input type=”date”>
+deliveryTime			<input type=”time”>
+categoryName			<input type=”text”>	//ex. “BME”, “CSBB”
+stockReceived.CategoryName	<input type=”number”>	//attach to invoice, use data collections
+```
 Variable Assignments:
-
-	let totalStockRecvd = cat1StockRecvd + cat2StockRecvd, ...
-
+```
+let totalStockReceived = stockReceived.Category1 + stockReceived.Category2 ...
+```
 Data stored to SQL server.
 
 
 ### **CASE COUNT TRACKER**
 
 Function...
+```
+...defines team of employee(s) (dropdown select any/all)
+...sorts employee(s) records by date range (any selected)
+...calculates averageTaskRate for employee(s) per date range(s)
+...calculates averageWorkAvailability for employee(s) per date range(s)
+```
+*It should sort by individual, subset or full set of employees.*
 
-	...defines teams of user(s) (dropdown select any/all)
-	...sorts user(s) records by date range (any selected)
-	...calculates avgCaseRate for user(s) per date range(s)
-	...calculates avgWorkAvail for user(s) per date range(s)
-
-*It should sort individuals, scheduled TMs, or whole team*
 *It should show 1 day, 7 days or 28 days*
 
 
@@ -61,11 +60,11 @@ Function...
 
 
 Variable assignments:
-
-	truckAvail = shiftEnd – deliveryTime
-	if truckAvail < avgWorkAvail,		*//truck is late*
-	  employeesRequired = totalStockRecvd ÷ avgCaseRate ÷ truckAvail
-	else		*//truck is on time or early*
-	  employeesRequired = totalStockRecvd ÷ avgCaseRate ÷ avgWorkAvail
-
-*It should calculate team members needed to complete truck throwing for a given arrival time and average case throwing rate for a given team*
+```
+deliveryAvailability = shiftEnd – deliveryTime
+if deliveryAvailability < averageWorkAvailability,	//delivery is late
+  employeesRequired = totalStockReceived ÷ averageTaskRate ÷ deliveryAvailability
+else							//delivery is on time or early
+  employeesRequired = totalStockReceived ÷ averageTaskRate ÷ averageWorkAvailability
+```
+*It should calculate subset of employees needed to complete total stock received for a given arrival time and average task rate for a full set of employees.*
