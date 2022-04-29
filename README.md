@@ -1,5 +1,5 @@
 # productivity-tracker
-It calculates average task rate and work availability for individual, subset or full set of employees for a given date range, and the number of employees needed to complete a series of tasks in a given amount of time at a calculated rate of productivity.
+This a work in progress designed to calculate the average task rate and work availability for individual, subset or full set of employees for a given date range, and the number of employees needed to complete a series of tasks in a given amount of time at a calculated rate of productivity.
 
 ### **CASE COUNT LOG**
 
